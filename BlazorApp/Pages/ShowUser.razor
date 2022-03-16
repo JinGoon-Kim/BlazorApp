@@ -24,7 +24,7 @@
     [Parameter]
     public EventCallback CallbackTest { get; set; }
 
-   protected override void OnInitialized()
+    protected override void OnInitialized()
     {
         Users.Add(new UserData() { Name = "Kim" });
         Users.Add(new UserData() { Name = "Jin" });
@@ -39,7 +39,7 @@
     public void KickUser(UserData user)
     {
         Users.Remove(user);
-        CallbackTest.invokeAsync(null);
+        CallbackTest.InvokeAsync(null);
     }
 
 }
