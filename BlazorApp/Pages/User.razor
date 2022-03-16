@@ -2,23 +2,9 @@
 
 @using BlazorApp.Data;
 
-<h3>User</h3>
+<h3>Online Users</h3>
 
-<p>
-    Users: <b>@_users.Count</b>
-</p>
-
-<br />
-
-<ul class="list-group">
-    @foreach (var user in _users)
-    {
-        <li @key="user" class="list-group-item">
-            <button type="button" class="btn btn-link" @onclick="() => KickUser(user)">[Kick]</button>
-            <label>@user.Name</label>
-        </li>
-    }
-</ul>
+<ShowUser Users="_users" CallbackTest="CallbackTestFunc" @ref="_showUser"></ShowUser>
 
 <br />
 
@@ -30,43 +16,29 @@
         <div class="col">
             <!-- 속성 (attribute) 에도 binding을 할 수가 있다. -->
             <!-- conditional attribute 속성 자체에 조건을 붙일 수도 있다. -->
-            <button class="@_btnClass" type="button" @onclick="AddUser" disabled="@(_users.Count() >= 5)">Add a User</button>
+            <button class="btn btn-primary" type="button" @onclick="AddUser" disabled="@(_users.Count() >= 5)">Add a User</button>
         </div>
     </div>
 </div>
 @code {
 
     List<UserData> _users = new List<UserData>();
+    ShowUser _showUser;
 
     string _inputName;
-    string _btnClass = "btn btn-primary";
-
-    protected override void OnInitialized()
-    {
-        _users.Add(new UserData() { Name = "Kim" });
-        _users.Add(new UserData() { Name = "Jin" });
-        _users.Add(new UserData() { Name = "Goon" });
-        RefreshButton();
-    }
 
     void AddUser()
     {
-        _users.Add(new UserData() { Name = _inputName });
-        _inputName = "";
-        RefreshButton();
+        _showUser.AddUser(new UserData() { Name = _inputName });
     }
 
     void KickUser(UserData user)
     {
         _users.Remove(user);
-        RefreshButton();
     }
 
-    void RefreshButton()
+    void CallbackTestFunc()
     {
-        if (_users.Count() % 2 == 0)
-            _btnClass = "btn btn-primary";
-        else
-            _btnClass = "btn btn-secondary";
+        _inputName = "CallbackTest";
     }
 }
