@@ -11,7 +11,12 @@
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 <button class="btn btn-secondary" @onclick="AutoIncrement">Auto Increment</button>
 
+
+
 @code {
+    [CascadingParameter(Name = "ThemeColor")]
+    string _color { get; set; }
+
     private int currentCount = 0;
 
     private void IncrementCount()
