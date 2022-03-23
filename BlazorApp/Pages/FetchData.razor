@@ -5,23 +5,35 @@
 @using BlazorApp.Data
 @inject WeatherForecastService ForecastService
 
-<div class="container-fluid">
-    <div class="row justify-content-evenly align-items-center">
-        <div class="col-md-2 col-sm-6 mb-1">
-            <input type="text" class="form-control" />
-        </div>
-        <div class="col-md-2 col-sm-6 mb-1">
-            <input type="datetime-local" class="form-control" />
-        </div>
-        <div class="col-md-2 col-sm-6 mb-1">
-            <input type="text" class="form-control" />
-        </div>
-        <div class="col-md-2 col-sm-6 mb-1 d-flex align-items-center justify-content-center">
-            <button type="button" class="btn btn-dark w-100">검색</button>
-        </div>
-    </div>
-</div>
+@* Templated Component *@
+@* RenderFragment로 이루어진 Razor Component *@
+<h1>Weather forecast</h1>
 
+<p>This component demonstrates fetching data from a service.</p>
+
+@if (forecasts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <TableTemplate Items="forecasts" Titem="WeatherForecast">
+        <Header>
+            <th>Date</th>
+            <th>Temp. (C)</th>
+            <th>Temp. (F)</th>
+            <th>Summary</th>
+        </Header>
+        <Row Context="forecast">
+            <tr>
+                <td>@forecast.Date.ToShortDateString()</td>
+                <td>@forecast.TemperatureC</td>
+                <td>@forecast.TemperatureF</td>
+                <td>@forecast.Summary</td>
+            </tr>
+        </Row>
+    </TableTemplate>
+}
 
 @code {
     private WeatherForecast[]? forecasts;

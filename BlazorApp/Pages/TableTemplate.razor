@@ -1,0 +1,31 @@
+﻿@using BlazorApp.Data
+@typeparam Titem
+
+<h3>TableTemplate</h3>
+
+ <table class="table">
+        <thead>
+            <tr>
+                @Header
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Items)
+            {
+                <tr>
+                    @Row(item)
+                </tr>
+            }
+        </tbody>
+    </table>
+
+@code {
+    [Parameter]
+    public RenderFragment Header { get; set; }
+
+    [Parameter]
+    public RenderFragment<Titem> Row { get; set; }
+
+    [Parameter]
+    public IReadOnlyList<Titem> Items { get; set; }
+}
