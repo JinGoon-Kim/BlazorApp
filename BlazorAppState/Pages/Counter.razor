@@ -1,0 +1,17 @@
+﻿@page "/counter"
+@inject BlazorAppState.Data.CounterState CounterState
+
+<PageTitle>Counter</PageTitle>
+
+<h1>Counter</h1>
+
+<p role="status">Current count: @CounterState.Count</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+@code {
+    private void IncrementCount()
+    {
+        CounterState.Count = CounterState.Count + 1;
+    }
+}
